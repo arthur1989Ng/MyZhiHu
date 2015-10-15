@@ -3,7 +3,7 @@ package ng.com.utils;
 import android.util.Log;
 
 public class LogUtils {
-    public static final String LOG_TAG = "NG";
+    public static final String LOG_TAG = "MyZhiHu";
     public static boolean DEBUG = true;
 
     public LogUtils() {

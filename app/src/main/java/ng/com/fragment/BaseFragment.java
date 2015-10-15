@@ -1,34 +1,41 @@
 package ng.com.fragment;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import ng.com.interf.BaseFragmentInterface;
+
 /**
  * Created by niangang on 2015/10/10.
  */
-public abstract class BaseFragment extends Fragment {
+public abstract class BaseFragment extends Fragment implements BaseFragmentInterface {
     protected Activity mActivity;
+    protected LayoutInflater mInflater;
+
+    private View view;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
         initData();
     }
 
-
-    @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return super.onCreateView(inflater, container, savedInstanceState);
+
+        mActivity = getActivity();
+        view = initFragView(inflater, container, savedInstanceState);
+
+
+        initView();
+
+        return view;
     }
 
-
-    protected abstract View initView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState);
 
     @Override
     public void onDestroy() {
@@ -36,9 +43,7 @@ public abstract class BaseFragment extends Fragment {
         mActivity = null;
     }
 
+    protected abstract View initFragView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState);
 
-    protected void initData() {
-
-    }
 
 }

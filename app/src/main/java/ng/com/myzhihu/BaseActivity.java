@@ -2,15 +2,34 @@ package ng.com.myzhihu;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 
-public class BaseActivity extends ActionBarActivity {
+import ng.com.interf.BaseViewInterface;
+
+public abstract class BaseActivity extends AppCompatActivity implements BaseViewInterface {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_base);
+        AppManager.getInstance().addActivity(this);
+        onBeforeSetContentLayout();
+        if (getLayoutId() != 0) {
+            setContentView(getLayoutId());
+        }
+        initView();
+        initData();
+    }
 
+
+    protected void onBeforeSetContentLayout() {
+    }
+
+    protected int getLayoutId() {
+        return 0;
+    }
+
+    protected boolean hasActionBar() {
+        return true;
     }
 
 }
-
